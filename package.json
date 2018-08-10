@@ -1,0 +1,37 @@
+{
+  "name": "generar-java",
+  "version": "1.0.0",
+  "description": "Deja de perder el tiempo escribiendo a mano cada get y set de tus atributos en BlueJ. Generalos solo con un par de clicks.",
+  "author": "Cabrera Mauricio Hernan <mauricioh_cabrera@hotmail.com>",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "precommit": "npm run lint",
+    "generate:gh-pages": "cross-env DEPLOY_ENV=GH_PAGES nuxt generate",
+    "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup"
+  },
+  "dependencies": {
+    "animate.css": "^3.6.1",
+    "axios": "^0.18.0",
+    "bootstrap-vue": "^2.0.0-rc.11",
+    "html2canvas": "^1.0.0-alpha.12",
+    "nuxt": "^1.0.0",
+    "vue-multiselect": "^2.1.0",
+    "vue-smooth-scroll": "^1.0.13",
+    "webfontloader": "^1.6.28"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.1",
+    "cross-env": "^5.2.0",
+    "eslint": "^4.15.0",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-loader": "^1.7.1",
+    "eslint-plugin-vue": "^4.0.0",
+    "node-sass": "^4.9.0",
+    "push-dir": "^0.4.1",
+    "sass-loader": "^7.0.3"
+  }
+}
