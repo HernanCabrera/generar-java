@@ -51,7 +51,7 @@ module.exports = {
             gtag('config', 'UA-121697227-1');
 
             ga('create', 'UA-121697227-1', 'auto');
-            ga('set', 'page', '/generador-java')
+            ga('set', 'page', '/generar-java')
             ga('send', 'pageview');
           `
       },
