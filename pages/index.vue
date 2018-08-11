@@ -1,104 +1,93 @@
 <template>
-  <transition
-    appear
-    appear-to-class="animated swing"
-    appear-active-class="animated swing">
-    <div class="pt-5">
-      <b-container>
-        <b-row>
-          <b-col cols="12" lg="6" class="py-0 px-1">
-            <div class="contenedor-formulario p-4">
-              <h1>Generador Java</h1>
-              <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-                <b-form-group id="exampleInputGroup1"
-                              label="Nombre del atributo: "
-                              label-for="exampleInput1">
-                  <b-form-input id="exampleInput1"
-                                type="text"
-                                v-model="form.atributo"
-                                required
-                                placeholder="Ingrese el nombre del atributo">
-                  </b-form-input>
-                </b-form-group>
+  <div class="pt-5">
+    <b-container>
+      <b-row>
+        <b-col cols="12" lg="6" class="py-0 px-1">
+          <div class="contenedor-formulario p-4">
+            <h1>Generador Java</h1>
+            <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+              <b-form-group id="exampleInputGroup1"
+                            label="Nombre del atributo: "
+                            label-for="exampleInput1">
+                <b-form-input id="exampleInput1"
+                              type="text"
+                              v-model="form.atributo"
+                              required
+                              placeholder="Ingrese el nombre del atributo">
+                </b-form-input>
+              </b-form-group>
 
-                <b-form-group id="exampleInputGroup2"
-                              label="Tipo de dato:"
-                              label-for="exampleInput2">
-                  <b-form-input id="exampleInput2"
-                                type="text"
-                                v-model="form.tipoDeDato"
-                                required
-                                placeholder="Ingrese el tipo de dato">
-                  </b-form-input>
-                </b-form-group>
+              <b-form-group id="exampleInputGroup2"
+                            label="Tipo de dato:"
+                            label-for="exampleInput2">
+                <b-form-input id="exampleInput2"
+                              type="text"
+                              v-model="form.tipoDeDato"
+                              required
+                              placeholder="Ingrese el tipo de dato">
+                </b-form-input>
+              </b-form-group>
 
-                <b-form-group label="Set: ">
-                  <b-form-radio-group id="radios-set" v-model="form.set" :options="accesos" name="radio-set">
-                  </b-form-radio-group>
-                </b-form-group>
+              <b-form-group label="Set: ">
+                <b-form-radio-group id="radios-set" v-model="form.set" :options="accesos" name="radio-set">
+                </b-form-radio-group>
+              </b-form-group>
 
-                <b-form-group label="Get: ">
-                  <b-form-radio-group id="radios-get" v-model="form.get" :options="accesos" name="radio-get">
-                  </b-form-radio-group>
-                </b-form-group>
+              <b-form-group label="Get: ">
+                <b-form-radio-group id="radios-get" v-model="form.get" :options="accesos" name="radio-get">
+                </b-form-radio-group>
+              </b-form-group>
 
-                <b-button type="reset" variant="danger">Reiniciar</b-button>
-                <b-button type="submit" variant="primary">Enviar</b-button>
-              </b-form>
-            </div>
+              <b-button type="reset" variant="danger">Reiniciar</b-button>
+              <b-button type="submit" variant="primary">Enviar</b-button>
+            </b-form>
+          </div>
+        </b-col>
+        <transition
+          name="custom-classes-transition"
+          enter-active-class="animated swing"
+          leave-active-class="animated roollOut"
+        >
+          <b-col cols="12" lg="6" class="px-1 py-2 py-lg-0" v-if="arreglo.length > 0">
+          <button class="btn-copiar" @click="copiarCodigo" variant="primary">Copiar codigo</button>
+            <pre>
+              <code>
+        <span class="color-line cursor-pointer" @click="eliminarTodo()">/*                              
+          TOCA ACA PARA                              
+          BORRAR TODO                                
+        */                              </span>
+
+        <span class="color-line">// ELIMINA LOS ATRIBUTOS, SET Y GET al tocar en los atributos</span>
+        <span class="color-line">// Atributos</span>
+        <span class="cursor-pointer" v-for="(a, indice) in arreglo" :key="a" @click="eliminarDelArreglo(indice)"><span class="color-primary">private</span> <span class="color-tertiary">{{ a.tipoDeDato }}</span> {{ a.atributo }};                            
+        </span>
+        <span class="color-line">// Setters</span>
+        <span class="setters" v-for="a in arreglo" :key="a"><span class="color-primary">{{ a.set }}</span> <span class="color-tertiary">void</span> <span class="color-secondary">set{{ a.atributo.charAt(0).toUpperCase() + a.atributo.substr(1) }}</span> (<span class="color-tertiary">{{a.tipoDeDato}}</span> <span class="color-quaternary">{{ a.atributo }}</span>) {
+        <span class="color-quaternary line">    this</span>.{{ a.atributo }} = {{ a.atributo }};
+        }
+        </span>
+        <span class="color-line">// Getters</span>
+        <span class="getters" v-for="a in arreglo" :key="a"><span class="color-primary">{{ a.get }}</span> <span class="color-tertiary">{{ a.tipoDeDato }}</span> <span class="color-secondary">get{{ a.atributo.charAt(0).toUpperCase() + a.atributo.substr(1) }}</span> () {
+        <span class="color-primary line">    return</span> <span class="color-quaternary">this</span>.{{ a.atributo }};
+        }
+        </span>
+        <span class="color-line">/**                              
+          * @author (Cabrera, Mauricio Hernan)                              
+        <span v-for="redsocial in redesSociales" :key="redsocial">  * <a :href="redsocial.url" :target="redsocial.target">{{ redsocial.nombre }}</a>
+        </span>*/</span>
+              </code>
+            </pre>
           </b-col>
-          <transition
-            name="custom-classes-transition"
-            enter-active-class="animated swing"
-            leave-active-class="animated roollOut"
-          >
-            <b-col cols="12" lg="6" class="px-1 py-2 py-lg-0" v-if="arreglo.length > 0">
-            <button class="btn-copiar" @click="copiarCodigo" variant="primary">Copiar codigo</button>
-              <pre>
-                <code>
-          <span class="color-line cursor-pointer" @click="eliminarTodo()">/*                              
-            TOCA ACA PARA                              
-            BORRAR TODO                                
-          */                              </span>
-
-          <span class="color-line">// ELIMINA LOS ATRIBUTOS, SET Y GET al tocar en los atributos</span>
-          <span class="color-line">// Atributos</span>
-          <span class="cursor-pointer" v-for="(a, indice) in arreglo" :key="a" @click="eliminarDelArreglo(indice)"><span class="color-primary">private</span> <span class="color-tertiary">{{ a.tipoDeDato }}</span> {{ a.atributo }};                            
-          </span>
-          <span class="color-line">// Setters</span>
-          <span class="setters" v-for="a in arreglo" :key="a"><span class="color-primary">{{ a.set }}</span> <span class="color-tertiary">void</span> <span class="color-secondary">set{{ a.atributo.charAt(0).toUpperCase() + a.atributo.substr(1) }}</span> (<span class="color-tertiary">{{a.tipoDeDato}}</span> <span class="color-quaternary">{{ a.atributo }}</span>) {
-          <span class="color-quaternary line">    this</span>.{{ a.atributo }} = {{ a.atributo }};
-          }
-          </span>
-          <span class="color-line">// Getters</span>
-          <span class="getters" v-for="a in arreglo" :key="a"><span class="color-primary">{{ a.get }}</span> <span class="color-tertiary">{{ a.tipoDeDato }}</span> <span class="color-secondary">get{{ a.atributo.charAt(0).toUpperCase() + a.atributo.substr(1) }}</span> () {
-          <span class="color-primary line">    return</span> <span class="color-quaternary">this</span>.{{ a.atributo }};
-          }
-          </span>
-          <span class="color-line">/**                              
-            * @author (Cabrera, Mauricio Hernan)                              
-          <span v-for="redsocial in redesSociales" :key="redsocial">  * <a :href="redsocial.url" :target="redsocial.target">{{ redsocial.nombre }}</a>
-          </span>*/</span>
-                </code>
-              </pre>
-            </b-col>
-          </transition>
-        </b-row>
-      </b-container>
-    </div>
-  </transition>
+        </transition>
+      </b-row>
+    </b-container>
+  </div>
 </template>
 
 <script>
 export default {
   data () {
     return {
-      // form: {
-      //   email: '',
-      //   name: '',
-      //   food: null,
-      //   checked: []
-      // },
       foods: [
         { text: 'Select One', value: null },
         'Carrots', 'Beans', 'Tomatoes', 'Corn'
@@ -198,7 +187,7 @@ export default {
 
 
       this.arreglo.forEach(el => {
-        string += `    ${el.get} get${el.atributo.charAt(0).toUpperCase() + el.atributo.substr(1)} ${el.atributo} () {
+        string += `    ${el.get} ${el.tipoDeDato} get${el.atributo.charAt(0).toUpperCase() + el.atributo.substr(1)} () {
         return this.${el.atributo};
     }
 `

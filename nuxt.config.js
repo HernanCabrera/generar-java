@@ -34,7 +34,7 @@ module.exports = {
       { itemprop: 'description', content: 'Deja de perder el tiempo escribiendo a mano cada get y set de tus atributos en BlueJ. Generalos solo con un par de clicks.' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/icono-java.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: 'https://hernancabrera.github.io/generar-java/icono-java.ico' }
     ],
     script: [
       { async: true, src: 'https://www.googletagmanager.com/gtag/js?id=121697227' },
